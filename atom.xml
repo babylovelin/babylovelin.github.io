@@ -6,7 +6,7 @@
   <link href="//atom.xml" rel="self"/>
   
   <link href="babylovelin.github.io/"/>
-  <updated>2018-01-30T07:22:41.352Z</updated>
+  <updated>2018-01-30T11:57:56.792Z</updated>
   <id>babylovelin.github.io/</id>
   
   <author>
@@ -17,16 +17,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>today</title>
-    <link href="babylovelin.github.io/2018/01/30/today/"/>
-    <id>babylovelin.github.io/2018/01/30/today/</id>
-    <published>2018-01-30T07:22:41.000Z</published>
-    <updated>2018-01-30T07:22:41.352Z</updated>
+    <title>first</title>
+    <link href="babylovelin.github.io/2018/01/30/first/"/>
+    <id>babylovelin.github.io/2018/01/30/first/</id>
+    <published>2018-01-30T11:57:23.000Z</published>
+    <updated>2018-01-30T11:57:56.792Z</updated>
     
     <summary type="html">
     
     </summary>
     
+    
+      <category term="css" scheme="babylovelin.github.io/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>today</title>
+    <link href="babylovelin.github.io/2018/01/30/today/"/>
+    <id>babylovelin.github.io/2018/01/30/today/</id>
+    <published>2018-01-30T07:22:41.000Z</published>
+    <updated>2018-01-30T11:39:40.785Z</updated>
+    
+    <content type="html"><![CDATA[<p>123222</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;123222&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="qqq333" scheme="babylovelin.github.io/tags/qqq333/"/>
     
   </entry>
   
