@@ -1,0 +1,78 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> cordova安卓环境配置 · lie on this ip ，I am lin</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/jekyll.css"><!--[if lt IE 9]>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]--></head><body><header class="row-flex-row limit-width vh-center"><a href="/" class="logo"><img src="/dog.png"></a><nav><ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-link">主页</a></li><li class="nav-list-item"><a href="/archives/" class="nav-link active">   博客</a></li><li class="nav-list-item"><a href="https://github.com/xxxxxx111" target="_blank" class="nav-link">github</a></li><li class="nav-list-item"><a href="https://coding.net/u/xxxxxx" target="_blank" class="nav-link">coding</a></li><li class="nav-list-item"><a href="http://weibo.com/xxxxxx" target="_blank" class="nav-link">weibo</a></li><li class="nav-list-item"><a href="/atom.xml" class="nav-link">rss</a></li></ul></nav></header><div class="container limit-width"><section class="row-flex-row"><div class="post"><article class="post-block"><h2 class="post-title"><a href="/2018/01/31/cordovaEnvConfig/" class="post-title-link">cordova安卓环境配置</a></h2><div class="post-meta"><div class="post-time">2018年Jan31st Wednesday</div></div><div class="post-content"><h2 id="安装cordova-CLI"><a href="#安装cordova-CLI" class="headerlink" title="安装cordova CLI"></a>安装cordova CLI</h2><p>1下载安装nodejs。在这之后你和以使用node和npm包管理工具 <br><br>2安装git <br><br>3安装cordova  在OS X和Linux上: <br><br><code>$ sudo npm install -g cordova</code></p>
+<h2 id="创建App"><a href="#创建App" class="headerlink" title="创建App"></a>创建App</h2><p><code>$ cordova create myapp</code> 创建一个文件夹名叫做myapp的项目 <br></p>
+<h2 id="给你的App添加平台"><a href="#给你的App添加平台" class="headerlink" title="给你的App添加平台"></a>给你的App添加平台</h2><p><code>$ cd myapp</code></p>
+<p>这个时候查看config.xml 还没有添加平台和平台的版本</p>
+<p><code>$ cordova platform add android --save</code> 这样就添加了一个安卓平台，默认情况下，会添加最新版本的。安卓7.0</p>
+<p>这时候再去查看config.xml，会发现，里面添加了 <code>&lt;engine name=&quot;android&quot; spec=&quot;~7.0.0&quot; /&gt;</code></p>
+<p>这表示，已经成功添加了安卓平台</p>
+<p>检查平台设置：<code>cordova platform ls</code></p>
+<p>控制台显示：说明已经安装 安卓7.0.0 可用为以下几个</p>
+<p><code>Installed platforms:
+  android 7.0.0
+Available platforms:
+  browser ~5.0.1
+  ios ~4.5.4
+  osx ~4.0.1
+  windows ~5.0.0
+  www ^3.12.0</code></p>
+<p>接下来我们来构建App</p>
+<h2 id="构建App"><a href="#构建App" class="headerlink" title="构建App"></a>构建App</h2><p><code>$ cordova build</code></p>
+<p>控制台提示：</p>
+<p><code>Android Studio project detected
+(node:7751) UnhandledPromiseRejectionWarning:
+Unhandled promise rejection (rejection id: 1): Failed to find &#39;ANDROID_HOME&#39; environment variable.
+Try setting it manually.
+Failed to find &#39;android&#39; command in your &#39;PATH&#39;. Try update your &#39;PATH&#39; to include path to valid SDK directory.</code></p>
+<p>说明没有安卓环境。需要安卓SDK，以及JDK。</p>
+<p>接下来参考安卓平台指南</p>
+<h2 id="安卓环境构建"><a href="#安卓环境构建" class="headerlink" title="安卓环境构建"></a>安卓环境构建</h2>  <h5>Java开发工具包 JDK</h5>
+
+<p>  依次执行<code>sudo add-apt-repository ppa:webupd8team/java</code>,<code>sudo apt-get update</code>,<code>sudo apt-get install oracle-java8-installer</code></p>
+<p>  执行 <code>java -version</code> 显示 openJDK 版本，这样 JDK就那装成功了。至于oracle JDK，需要的自行安装。</p>
+<p>  <div class="note"><br>    <h5>提示</h5><br>    <p>如果安装不上，或者其他问题，可能是因为你已经安装过其他的版本，需要将其他版本卸载，安装java8</p><br>  </div><br>  1、 移除所有 Java相关包 (Sun, Oracle, OpenJDK, IcedTea plugins, GIJ):</p>
+<p>  (1) apt-get update</p>
+<p>  (2) apt-cache search java | awk ‘{print($1)}’ | grep -E -e ‘^(ia32-)?(sun|oracle)-java’ -e ‘^openjdk-‘ -e ‘^icedtea’ -e ‘^(default|gcj)-j(re|dk)’ -e ‘^gcj-(.*)-j(re|dk)’ -e ‘java-common’ | xargs sudo apt-get -y remove</p>
+<p>  (3) apt-get -y autoremove</p>
+<p>  2、清除配置信息:  dpkg -l | grep ^rc | awk ‘{print($2)}’ | xargs sudo apt-get -y purge</p>
+<p>  3、清除java配置及缓存:  bash -c ‘ls -d /home/*/.java’ | xargs sudo rm -rf</p>
+<p>  4、手动清除JVMs:  rm -rf /usr/lib/jvm/*</p>
+  <h5>安卓SDK</h5>
+
+<p>  注意，在linux上要装linux版本的SDK。。。</p>
+<p>  在Mac或者Linux上面，你可以使用文本编辑器来创建或者修改文件<code>~/.bash_profile</code></p>
+<p>  为了设置一个环境变量，添加一行，使用export像下面这样(用你本地安装路径替代路径):</p>
+<p>  <code>export ANDROID_HOME=/Development/android-sdk/</code> 路径从根路径开始写</p>
+<p>  为了更新PATH,添加一行类似下面这样(路径替换为你本地的Android SDK安装路径):</p>
+<p>  <code>export PATH=${PATH}:/Development/android-sdk/platform-tools:/Development/android-sdk/tools</code></p>
+<p>  重新启动终端或者运行下面命令来看变化带来的反应:</p>
+<p>  <code>$ source ~/.bash_profile</code></p>
+<p>  如果没有任何反应，说明配好了。</p>
+<p>  <div class="note info"><br>    <h5>注意<h5><br>    <p>目前版本，是需要android-26的，所以直接下载这个版本的SDK，或者下载android-studio，这个在调试项目时也会使用。<br>    在这个IDE里面，有SDK的管理工具。点击-26版本,下载一下就好了，这里面配置的SDK路径和设置的环境变量里面的路径是一致的。</p><br>  </h5></h5></div></p>
+<h2 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h2><p>  安装Android-studio时，会自动下载gradle，不过，速度很慢，还可能中途断掉，所以，建议在官网上自行下载压缩包，然后配置环境变量。</p>
+<p>  如果你不希望所有用户都使用这个配置，那么可以单独为自己的账号配置gradle环境，在自己账号的HOME目录下</p>
+<p>  $vi ~/.bash_profile</p>
+<p>  <code>export GRADLE_HOME=/home/tangzhiqiang/dev/gradle-2.6</code></p>
+<p>  <code>export PATH=$GRADLE_HOME/bin:$PATH</code></p>
+<p>  保存退出后，让修改及时生效，执行</p>
+<p>  <code>$source /etc/profile</code></p>
+<p>  查看gradle版本信息</p>
+<p>  <code>$ gradle -version</code></p>
+<p>  下边我们再执行</p>
+<p>  <code>$ cordova requirements</code></p>
+<p>  显示</p>
+<p>  <code>Requirements check results for android:
+  Java JDK: installed 1.8.0
+  Android SDK: installed true
+  Android target: installed android-27,android-26,android-24,Google Inc.:Google
+  APIs:24,android-23,Google Inc.:Google APIs:23,android-22,Google Inc.:Google
+  APIs:22,android-21,Google Inc.:Google APIs:21,android-19,Google Inc.:Glass Development Kit
+  Preview:19,Google Inc.:Google APIs:19,android-18,Google Inc.:Google APIs:18,android-17,Google
+  Inc.:Google APIs:17,android-16,Google Inc.:Google APIs:16,android-15,Google Inc.:Google APIs:15
+  Gradle: installed /home/hhl/Android/gradle/gradle-4.4/bin/gradle</code></p>
+<p>  这样环境就OK了。</p>
+<h2 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h2><p>  执行</p>
+<p>  <code>$ cordova build</code></p>
+</div></article><div class="pagination"><span class="pagination-prev">PREV</span><a href="/2018/01/31/cordovaIntro/" class="pagination-next">NEXT</a></div><div class="comments"></div></div><aside class="sidebar"><h3>分类标签</h3><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/cordova/">cordova</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li></ul><h3>最新文章</h3><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/cordovaEnvConfig/">cordova安卓环境配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/cordovaIntro/">cordova简介</a></li><li class="post-list-item"><a class="post-list-link" href="/2015/10/21/demo/">辨析 Sass 中的 Map 和 List</a></li></ul></aside></section></div><div class="extra"></div><footer class="footer"><div class="row-flex-row limit-width vh-center"><div class="copyright"><P>Powered by lin © 2018 <a href="/">lin</P></div></div></footer><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-80781234-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?ee75cf111111aa99f8540efa2570970";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>

@@ -6,7 +6,7 @@
   <link href="//atom.xml" rel="self"/>
   
   <link href="babylovelin.github.io/"/>
-  <updated>2018-01-30T11:57:56.792Z</updated>
+  <updated>2018-01-31T06:52:23.801Z</updated>
   <id>babylovelin.github.io/</id>
   
   <author>
@@ -17,42 +17,46 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>first</title>
-    <link href="babylovelin.github.io/2018/01/30/first/"/>
-    <id>babylovelin.github.io/2018/01/30/first/</id>
-    <published>2018-01-30T11:57:23.000Z</published>
-    <updated>2018-01-30T11:57:56.792Z</updated>
+    <title>cordova安卓环境配置</title>
+    <link href="babylovelin.github.io/2018/01/31/cordovaEnvConfig/"/>
+    <id>babylovelin.github.io/2018/01/31/cordovaEnvConfig/</id>
+    <published>2018-01-31T02:55:06.000Z</published>
+    <updated>2018-01-31T06:52:23.801Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="安装cordova-CLI"><a href="#安装cordova-CLI" class="headerlink" title="安装cordova CLI"></a>安装cordova CLI</h2><p>1下载安装nodejs。在这之后你和以使用node和npm包管理工具 <br><br>2安装git <br><br>3安装cordova  在OS X和Linux上: <br><br><code>$ sudo npm install -g cordova</code></p><h2 id="创建App"><a href="#创建App" class="headerlink" title="创建App"></a>创建App</h2><p><code>$ cordova create myapp</code> 创建一个文件夹名叫做myapp的项目 <br></p><h2 id="给你的App添加平台"><a href="#给你的App添加平台" class="headerlink" title="给你的App添加平台"></a>给你的App添加平台</h2><p><code>$ cd myapp</code></p><p>这个时候查看config.xml 还没有添加平台和平台的版本</p><p><code>$ cordova platform add android --save</code> 这样就添加了一个安卓平台，默认情况下，会添加最新版本的。安卓7.0</p><p>这时候再去查看config.xml，会发现，里面添加了 <code>&lt;engine name=&quot;android&quot; spec=&quot;~7.0.0&quot; /&gt;</code></p><p>这表示，已经成功添加了安卓平台</p><p>检查平台设置：<code>cordova platform ls</code></p><p>控制台显示：说明已经安装 安卓7.0.0 可用为以下几个</p><p><code>Installed platforms:  android 7.0.0Available platforms:  browser ~5.0.1  ios ~4.5.4  osx ~4.0.1  windows ~5.0.0  www ^3.12.0</code></p><p>接下来我们来构建App</p><h2 id="构建App"><a href="#构建App" class="headerlink" title="构建App"></a>构建App</h2><p><code>$ cordova build</code></p><p>控制台提示：</p><p><code>Android Studio project detected(node:7751) UnhandledPromiseRejectionWarning:Unhandled promise rejection (rejection id: 1): Failed to find &#39;ANDROID_HOME&#39; environment variable.Try setting it manually.Failed to find &#39;android&#39; command in your &#39;PATH&#39;. Try update your &#39;PATH&#39; to include path to valid SDK directory.</code></p><p>说明没有安卓环境。需要安卓SDK，以及JDK。</p><p>接下来参考安卓平台指南</p><h2 id="安卓环境构建"><a href="#安卓环境构建" class="headerlink" title="安卓环境构建"></a>安卓环境构建</h2>  <h5>Java开发工具包 JDK</h5><p>  依次执行<code>sudo add-apt-repository ppa:webupd8team/java</code>,<code>sudo apt-get update</code>,<code>sudo apt-get install oracle-java8-installer</code></p><p>  执行 <code>java -version</code> 显示 openJDK 版本，这样 JDK就那装成功了。至于oracle JDK，需要的自行安装。</p><p>  <div class="note"><br>    <h5>提示</h5><br>    <p>如果安装不上，或者其他问题，可能是因为你已经安装过其他的版本，需要将其他版本卸载，安装java8</p><br>  </div><br>  1、 移除所有 Java相关包 (Sun, Oracle, OpenJDK, IcedTea plugins, GIJ):</p><p>  (1) apt-get update</p><p>  (2) apt-cache search java | awk ‘{print($1)}’ | grep -E -e ‘^(ia32-)?(sun|oracle)-java’ -e ‘^openjdk-‘ -e ‘^icedtea’ -e ‘^(default|gcj)-j(re|dk)’ -e ‘^gcj-(.*)-j(re|dk)’ -e ‘java-common’ | xargs sudo apt-get -y remove</p><p>  (3) apt-get -y autoremove</p><p>  2、清除配置信息:  dpkg -l | grep ^rc | awk ‘{print($2)}’ | xargs sudo apt-get -y purge</p><p>  3、清除java配置及缓存:  bash -c ‘ls -d /home/*/.java’ | xargs sudo rm -rf</p><p>  4、手动清除JVMs:  rm -rf /usr/lib/jvm/*</p>  <h5>安卓SDK</h5><p>  注意，在linux上要装linux版本的SDK。。。</p><p>  在Mac或者Linux上面，你可以使用文本编辑器来创建或者修改文件<code>~/.bash_profile</code></p><p>  为了设置一个环境变量，添加一行，使用export像下面这样(用你本地安装路径替代路径):</p><p>  <code>export ANDROID_HOME=/Development/android-sdk/</code> 路径从根路径开始写</p><p>  为了更新PATH,添加一行类似下面这样(路径替换为你本地的Android SDK安装路径):</p><p>  <code>export PATH=${PATH}:/Development/android-sdk/platform-tools:/Development/android-sdk/tools</code></p><p>  重新启动终端或者运行下面命令来看变化带来的反应:</p><p>  <code>$ source ~/.bash_profile</code></p><p>  如果没有任何反应，说明配好了。</p><p>  <div class="note info"><br>    <h5>注意<h5><br>    <p>目前版本，是需要android-26的，所以直接下载这个版本的SDK，或者下载android-studio，这个在调试项目时也会使用。<br>    在这个IDE里面，有SDK的管理工具。点击-26版本,下载一下就好了，这里面配置的SDK路径和设置的环境变量里面的路径是一致的。</p><br>  </h5></h5></div></p><h2 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h2><p>  安装Android-studio时，会自动下载gradle，不过，速度很慢，还可能中途断掉，所以，建议在官网上自行下载压缩包，然后配置环境变量。</p><p>  如果你不希望所有用户都使用这个配置，那么可以单独为自己的账号配置gradle环境，在自己账号的HOME目录下</p><p>  $vi ~/.bash_profile</p><p>  <code>export GRADLE_HOME=/home/tangzhiqiang/dev/gradle-2.6</code></p><p>  <code>export PATH=$GRADLE_HOME/bin:$PATH</code></p><p>  保存退出后，让修改及时生效，执行</p><p>  <code>$source /etc/profile</code></p><p>  查看gradle版本信息</p><p>  <code>$ gradle -version</code></p><p>  下边我们再执行</p><p>  <code>$ cordova requirements</code></p><p>  显示</p><p>  <code>Requirements check results for android:  Java JDK: installed 1.8.0  Android SDK: installed true  Android target: installed android-27,android-26,android-24,Google Inc.:Google  APIs:24,android-23,Google Inc.:Google APIs:23,android-22,Google Inc.:Google  APIs:22,android-21,Google Inc.:Google APIs:21,android-19,Google Inc.:Glass Development Kit  Preview:19,Google Inc.:Google APIs:19,android-18,Google Inc.:Google APIs:18,android-17,Google  Inc.:Google APIs:17,android-16,Google Inc.:Google APIs:16,android-15,Google Inc.:Google APIs:15  Gradle: installed /home/hhl/Android/gradle/gradle-4.4/bin/gradle</code></p><p>  这样环境就OK了。</p><h2 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h2><p>  执行</p><p>  <code>$ cordova build</code></p>]]></content>
     
     <summary type="html">
     
+      
+      
+        &lt;h2 id=&quot;安装cordova-CLI&quot;&gt;&lt;a href=&quot;#安装cordova-CLI&quot; class=&quot;headerlink&quot; title=&quot;安装cordova CLI&quot;&gt;&lt;/a&gt;安装cordova CLI&lt;/h2&gt;&lt;p&gt;1下载安装nodejs。在这之后你和以使用node和
+      
+    
     </summary>
     
-    
-      <category term="css" scheme="babylovelin.github.io/tags/css/"/>
     
   </entry>
   
   <entry>
-    <title>today</title>
-    <link href="babylovelin.github.io/2018/01/30/today/"/>
-    <id>babylovelin.github.io/2018/01/30/today/</id>
-    <published>2018-01-30T07:22:41.000Z</published>
-    <updated>2018-01-30T11:39:40.785Z</updated>
+    <title>cordova简介</title>
+    <link href="babylovelin.github.io/2018/01/31/cordovaIntro/"/>
+    <id>babylovelin.github.io/2018/01/31/cordovaIntro/</id>
+    <published>2018-01-31T02:20:00.000Z</published>
+    <updated>2018-01-31T02:51:50.341Z</updated>
     
-    <content type="html"><![CDATA[<p>123222</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>cordova 是一个开源的移动开发框架，允许使用标准的web技术，<code>HTML5 CSS3 Javascript</code>进行跨平台开发。应用程序在每个平台的包装内置行，依靠标准的API来绑定每个设备的传感器，数据和网络状态～</p><h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><p>我们可以开发一个应用程序，将在不同的移动平台上使用。</p><h2 id="平台"><a href="#平台" class="headerlink" title="平台"></a>平台</h2><p><code>IOS</code>，<code>Android</code>，<code>Windows Phone</code>，<code>Amazon-fireos</code>，<code>黑莓</code>，<code>Firefox OS</code>，<code>Ubuntu</code>和<code>tizien</code></p><p><div class="note warning"><br>    <h5>限制</h5><br>    <p>混合应用程序比本地应用程序慢，因此对于需要大量数据和功能的大型应用程序使用Cordova不是最佳选择。</p><br></div><br>  </p><p>跨浏览器兼容性可能会产生很多问题。大多数时候，我们为不同的平台构建应用程序，所以测试和优化可能需要很多时间，因为我们需要覆盖大量的设备和操作系统。某些插件与不同的设备和平台存在兼容性问题。还有一些Cordova尚不支持的本机API。</p><p></p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;123222&lt;/p&gt;
-
+        &lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;cordova 是一个开源的移动开发框架，允许使用标准的web技术，&lt;code&gt;HTML5 CSS3 Javascript&lt;/code&gt;进行
       
     
     </summary>
     
     
-      <category term="qqq333" scheme="babylovelin.github.io/tags/qqq333/"/>
+      <category term="cordova" scheme="babylovelin.github.io/tags/cordova/"/>
     
   </entry>
   
