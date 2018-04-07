@@ -1,0 +1,191 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Git 常用命令 · lie on this ip ，I am lin</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/jekyll.css"><!--[if lt IE 9]>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]--></head><body><header class="row-flex-row limit-width vh-center"><a href="/" class="logo"><img src="/dog.png"></a><nav><ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-link">Home</a></li><li class="nav-list-item"><a href="/archives/" class="nav-link active">   Blog</a></li><li class="nav-list-item"><a href="https://github.com/xxxxxx111" target="_blank" class="nav-link">github</a></li><li class="nav-list-item"><a href="https://coding.net/u/xxxxxx" target="_blank" class="nav-link">coding</a></li><li class="nav-list-item"><a href="http://weibo.com/xxxxxx" target="_blank" class="nav-link">weibo</a></li><li class="nav-list-item"><a href="/atom.xml" class="nav-link">rss</a></li></ul></nav></header><div class="container limit-width"><section class="row-flex-row"><div class="post"><article class="post-block"><h2 class="post-title"><a href="/2018/03/14/git/" class="post-title-link">Git 常用命令</a></h2><div class="post-meta"><ul class="post-tag-list"><li class="post-tag-item"><a href="/tags/拓展/" class="post-tag-link">拓展</a></li></ul><div class="post-time">Wednesday, March 14th 2018</div></div><div class="post-content"><h2 id="在Linux上安装Git"><a href="#在Linux上安装Git" class="headerlink" title="在Linux上安装Git"></a>在Linux上安装Git</h2><p><code>sudo apt-get install git</code></p>
+<p><code>$ git config --global user.name &quot;Your Name&quot;
+$ git config --global user.email &quot;email@example.com&quot;</code></p>
+<h2 id="创建版本库"><a href="#创建版本库" class="headerlink" title="创建版本库"></a>创建版本库</h2><p>  通过git init命令把这个目录变成Git可以管理的仓库</p>
+<p>  <code>$ git init</code></p>
+<p>  第一步，用命令git add告诉Git，把文件添加到仓库</p>
+<p>  <code>$ git add filename</code></p>
+<p>  <code>$ git add .</code> 将全部文件添加到仓库</p>
+<p>  第二步，用命令git commit告诉Git，把文件提交到仓库</p>
+<p>  <code>$ git commit -m &quot;提交的信息&quot;</code></p>
+<h2 id="版本退回"><a href="#版本退回" class="headerlink" title="版本退回"></a>版本退回</h2><p>  版本控制系统肯定有某个命令可以告诉我们历史记录，在Git中，我们用git log命令查看：</p>
+<p>  <code>$ git log</code>  显示从最近到最远的提交日志</p>
+<p>  <code>$ git reset --hard</code>  回退到上一个版本</p>
+<p>  命令git reflog用来记录你的每一次命令</p>
+<p>  <code>$ git reflog</code></p>
+<h2 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h2><p>  Git和其他版本控制系统如SVN的一个不同之处就是有暂存区的概念。</p>
+<p>  工作去就是你在电脑里能看到的目录</p>
+<p>  需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改</p>
+<p>  git status查看一下状态：</p>
+<p>  <code>$ git status</code></p>
+<h2 id="管理修改"><a href="#管理修改" class="headerlink" title="管理修改"></a>管理修改</h2><p>  Git管理的是修改，当你用git add命令后，在工作区的第一次修改被放入暂存区，准备提交，</p>
+<p>  但是，在工作区的第二次修改并没有放入暂存区，所以，git commit只负责把暂存区的修改提交了，也就是第一次的修改被提交了，第二次的修改不会被提交。</p>
+<p>  <code>git diff HEAD -- readme.txt</code>  查看工作区和版本库里面最新版本的区别：</p>
+<h2 id="撤销修改"><a href="#撤销修改" class="headerlink" title="撤销修改"></a>撤销修改</h2><p>  命令git checkout – readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销</p>
+<p>  <code>git checkout -- readme.txt</code> 总之，就是让这个文件回到最近一次git commit或git add时的状态</p>
+<p>  git checkout – file可以丢弃工作区的修改：</p>
+<p>  用命令git reset HEAD file可以把暂存区的修改撤销掉（unstage），重新放回工作区</p>
+<p>  <code>git reset HEAD file</code></p>
+<h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><p>  一般情况下，你通常直接在文件管理器中把没用的文件删了，或者用rm命令删了</p>
+<p>  Git知道你删除了文件，因此，工作区和版本库就不一致了，git status命令会立刻告诉你哪些文件被删除了</p>
+<p>  现在你有两个选择，一是确实要从版本库中删除该文件，那就用命令git rm删掉，并且git commit</p>
+<p>  <code>$ git rm test.txt</code></p>
+<p>  <code>$ git commit -m &quot;remove test.txt&quot;</code></p>
+<p>  另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：</p>
+<p>  <code>$ git checkout -- test.txt</code></p>
+<h2 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h2><p>  已经在本地创建了一个Git仓库后，又想在GitHub创建一个Git仓库，并且让这两个仓库进行远程同步，这样，GitHub上的仓库既可以作为备份，又可以让其他人通过该仓库来协作</p>
+<p>  GitHub告诉我们，可以从这个仓库克隆出新的仓库，也可以把一个已有的本地仓库与之关联</p>
+<p>  <code>$ git remote add origin git@github.com:michaelliao/learngit.git</code></p>
+<p>  远程库的名字就是origin，这是Git默认的叫法，也可以改成别的，但是origin这个名字一看就知道是远程库。</p>
+<p>  把本地库的所有内容推送到远程库上</p>
+<p>  <code>$ git push -u origin master</code>  用git push命令，实际上是把当前分支master推送到远程。</p>
+<p>  加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令</p>
+<p>  从现在起，只要本地作了提交，就可以通过命令：</p>
+<p>  <code>$ git push origin master</code></p>
+<h2 id="从远程库克隆"><a href="#从远程库克隆" class="headerlink" title="从远程库克隆"></a>从远程库克隆</h2><p>  <code>$ git clone git@github.com:michaelliao/gitskills.git</code></p>
+<h2 id="创建与合并分支"><a href="#创建与合并分支" class="headerlink" title="创建与合并分支"></a>创建与合并分支</h2><p>  我们创建dev分支，然后切换到dev分支</p>
+<p>  <code>$ git checkout -b dev</code>  命令加上-b参数表示创建并切换</p>
+<p>  然后，用git branch命令查看当前分支</p>
+<p>  <code>$ git branch</code></p>
+<p>  然后提交：</p>
+<p>  <code>$ git add readme.txt
+  $ git commit -m &quot;branch test&quot;</code></p>
+<p>  dev分支的工作完成，我们就可以切换回master分支</p>
+<p>  <code>$ git checkout master</code></p>
+<p>  切换回master分支后，再查看一个readme.txt文件，刚才添加的内容不见了！因为那个提交是在dev分支上，而master分支此刻的提交点并没有变</p>
+<p>  我们把dev分支的工作成果合并到master分支上：</p>
+<p>  <code>$ git merge dev</code></p>
+<p>  合并完成后，就可以放心地删除dev分支了</p>
+<p>  <code>$ git branch -d dev</code></p>
+<p>  小结</p>
+<p>  <code>Git鼓励大量使用分支：
+  查看分支：git branch
+  创建分支：git branch &lt;name&gt;
+  切换分支：git checkout &lt;name&gt;
+  创建+切换分支：git checkout -b &lt;name&gt;
+  合并某分支到当前分支：git merge &lt;name&gt;
+  删除分支：git branch -d &lt;name&gt;</code></p>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><p>  合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息</p>
+<p>  准备合并dev分支，请注意–no-ff参数，表示禁用Fast forward：</p>
+<p>  如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息</p>
+<p>  <code>$ git merge --no-ff -m &quot;merge with no-ff&quot; dev</code></p>
+<h2 id="BUG-分支"><a href="#BUG-分支" class="headerlink" title="BUG 分支"></a>BUG 分支</h2><p>  Git还提供了一个stash功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作</p>
+<p>  <code>$ git stash</code></p>
+<p>  用<code>git status</code>查看工作区，就是干净的（除非有没有被Git管理的文件），因此可以放心地创建分支来修复bug</p>
+<p>  首先确定要在哪个分支上修复bug，假定需要在master分支上修复，就从master创建临时分支</p>
+<p>  <code>$ git checkout master
+$ git checkout -b issue-101
+$ git add readme.txt
+$ git commit -m &quot;fix bug 101&quot;</code><br>  修复完成后，切换到master分支，并完成合并，最后删除issue-101分支</p>
+<p>  <code>$ git checkout master
+$ git merge --no-ff -m &quot;merged bug fix 101&quot; issue-101
+$ git branch -d issue-101</code></p>
+<p>  现在，是时候接着回到dev分支干活了</p>
+<p>  <code>$ git checkout dev
+$ git status</code></p>
+<p>  工作区是干净的，刚才的工作现场存到哪去了？用git stash list命令看看</p>
+<p>  <code>$ git stash list</code></p>
+<p>  工作现场还在，Git把stash内容存在某个地方了，但是需要恢复一下</p>
+<p>  <code>一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+另一种方式是用git stash pop，恢复的同时把stash内容也删了：</code></p>
+<p>  <code>$ git stash pop</code></p>
+<p>  你可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令</p>
+<p>  <code>$ git stash apply stash@{0}</code></p>
+<h2 id="Feature分支"><a href="#Feature分支" class="headerlink" title="Feature分支"></a>Feature分支</h2><p>  添加一个新功能时，你肯定不希望因为一些实验性质的代码，把主分支搞乱了，所以，每添加一个新功能，最好新建一个feature分支，在上面开发，完成后，合并，最后，删除该feature分支</p>
+<p>  <code>$ git checkout -b feature-vulcan</code></p>
+<p>  <code>$ git add vulcan.py
+$ git status
+$ git commit -m &quot;add feature vulcan&quot;</code></p>
+<p>  切换回dev</p>
+<p>  <code>$ git checkout dev</code></p>
+<p>  一切顺利的话，feature分支和bug分支是类似的，合并，然后删除</p>
+<p>  就在此时，接到上级命令，因经费不足，新功能必须取消！</p>
+<p>  虽然白干了，但是这个分支还是必须就地销毁：</p>
+<p>  <code>$ git branch -d feature-vulcan</code></p>
+<p>  Git友情提醒，feature-vulcan分支还没有被合并，如果删除，将丢失掉修改，如果要强行删除，需要使用命令git branch -D feature-vulcan。</p>
+<p>  <code>$ git branch -D feature-vulcan</code></p>
+<h2 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h2><p>  要查看远程库的信息，用git remote</p>
+<p>  <code>$ git remote</code></p>
+<p>  用git remote -v显示更详细的信息</p>
+<p>  <code>$ git remote -v</code></p>
+<p>  推送分支，就是把该分支上的所有本地提交推送到远程库。推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上</p>
+<p>  <code>$ git push origin master</code></p>
+<p>  如果要推送其他分支，比如dev，就改成：</p>
+<p>  <code>$ git push origin dev</code></p>
+<p>  抓取分支</p>
+<p>  <code>$ git clone git@github.com:michaelliao/learngit.git</code></p>
+<p>  当你的小伙伴从远程库clone时，默认情况下，你的小伙伴只能看到本地的master分支</p>
+<p>  <code>$ git branch</code></p>
+<p>  你的小伙伴要在dev分支上开发，就必须创建远程origin的dev分支到本地，于是他用这个命令创建本地dev分支</p>
+<p>  <code>$ git checkout -b dev origin/dev</code></p>
+<p>  他就可以在dev上继续修改，然后，时不时地把dev分支push到远程</p>
+<p>  <code>$ git commit -m &quot;add /usr/bin/env&quot;</code></p>
+<p>  <code>$ git push origin dev</code></p>
+<p>  你的小伙伴已经向origin/dev分支推送了他的提交，而碰巧你也对同样的文件作了修改</p>
+<p>  推送失败，因为你的小伙伴的最新提交和你试图推送的提交有冲突，解决办法也很简单，Git已经提示我们，先用git pull把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，再推送：</p>
+<p>  <code>$ git pull</code></p>
+<p>  git pull也失败了，原因是没有指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接</p>
+<p>  <code>$ git branch</code></p>
+<p>  再pull：</p>
+<p>  <code>$ git pull</code></p>
+<p>  这回git pull成功，但是合并有冲突，需要手动解决，解决的方法和分支管理中的解决冲突完全一样</p>
+<h4 id="多人协作的工作模式通常是这样"><a href="#多人协作的工作模式通常是这样" class="headerlink" title="多人协作的工作模式通常是这样"></a>多人协作的工作模式通常是这样</h4><p>  首先，可以试图用git push origin branch-name推送自己的修改；</p>
+<p>  如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；</p>
+<p>  如果合并有冲突，则解决冲突，并在本地提交；</p>
+<p>  没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！</p>
+<p>  如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch –set-upstream branch-name origin/branch-name。</p>
+<p>  这就是多人协作的工作模式，一旦熟悉了，就非常简单。</p>
+<p>  总结：</p>
+<p>  查看远程库信息，使用git remote -v；</p>
+<p>  本地新建的分支如果不推送到远程，对其他人就是不可见的；</p>
+<p>  从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；</p>
+<p>  在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；</p>
+<p>  建立本地分支和远程分支的关联，使用git branch –set-upstream branch-name origin/branch-name；</p>
+<p>  从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。</p>
+<h2 id="创建标签"><a href="#创建标签" class="headerlink" title="创建标签"></a>创建标签</h2><p>  在Git中打标签非常简单，首先，切换到需要打标签的分支上</p>
+<p>  <code>$ git branch</code><br>  <code>$ git checkout master</code></p>
+<p>  然后，敲命令git tag <name>就可以打一个新标签：</name></p>
+<p>  <code>$ git tag v1.0</code></p>
+<p>  可以用命令git tag查看所有标签：</p>
+<p>  <code>$ git tag</code></p>
+<p>  补充标签</p>
+<p>  方法是找到历史提交的commit id，然后打上就可以了</p>
+<p>  <code>$ git log --pretty=oneline --abbrev-commit</code></p>
+<p>  比方说要对add merge这次提交打标签，它对应的commit id是6224937，敲入命令：</p>
+<p>  <code>$ git tag v0.9 6224937</code></p>
+<p>  再用命令git tag查看标签：</p>
+<p>  <code>$ git tag</code></p>
+<p>  可以用git show <tagname>查看标签信息</tagname></p>
+<p>  <code>$ git show v0.9</code></p>
+<p>  创建带有说明的标签，用-a指定标签名，-m指定说明文字</p>
+<p>  <code>$ git tag -a v0.1 -m &quot;version 0.1 released&quot; 3628164</code></p>
+<p>  用命令git show <tagname>可以看到说明文字：</tagname></p>
+<p>  <code>$ git show v0.1</code></p>
+<p>  还可以通过-s用私钥签名一个标签：</p>
+<p>  <code>$ git tag -s v0.2 -m &quot;signed version 0.2 released&quot; fec145a</code></p>
+<p>  签名采用PGP签名，因此，必须首先安装gpg（GnuPG），如果没有找到gpg，或者没有gpg密钥对，就会报错</p>
+<p>  用命令git show <tagname>可以看到PGP签名信息</tagname></p>
+<p>  <code>$ git show v0.2</code></p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>  命令git tag <name>用于新建一个标签，默认为HEAD，也可以指定一个commit id；</name></p>
+<p>  git tag -a <tagname> -m “blablabla…”可以指定标签信息；</tagname></p>
+<p>  git tag -s <tagname> -m “blablabla…”可以用PGP签名标签；</tagname></p>
+<p>  命令git tag可以查看所有标签。</p>
+<h2 id="操作标签"><a href="#操作标签" class="headerlink" title="操作标签"></a>操作标签</h2><p>  如果标签打错了，也可以删除：  </p>
+<p>  $ git tag -d v0.1</p>
+<p>  因为创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除</p>
+<p>  如果要推送某个标签到远程，使用命令git push origin <tagname></tagname></p>
+<p>  <code>$ git push origin v1.0</code></p>
+<p>  一次性推送全部尚未推送到远程的本地标签</p>
+<p>  <code>$ git push origin --tags</code></p>
+<p>  如果标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除</p>
+<p>  <code>$ git tag -d v0.9</code></p>
+<p>  然后，从远程删除。删除命令也是push，但是格式如下：</p>
+<p>  <code>$ git push origin :refs/tags/v0.9</code></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>  命令git push origin <tagname>可以推送一个本地标签；</tagname></p>
+<p>  命令git push origin –tags可以推送全部未推送过的本地标签；</p>
+<p>  命令git tag -d <tagname>可以删除一个本地标签；</tagname></p>
+<p>  命令git push origin :refs/tags/<tagname>可以删除一个远程标签。</tagname></p>
+</div></article><div class="pagination"><a href="/2018/03/15/js-cssLib/" class="pagination-prev">PREV</a><a href="/2018/03/13/Tip/" class="pagination-next">NEXT</a></div><div class="comments"></div></div><aside class="sidebar"><h3>分类标签</h3><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5/">H5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aliNginx/">aliNginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓展/">拓展</a></li></ul><h3>最新文章</h3><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/04/07/jsMechanism/">jsMechanism</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/07/aliNginx/">aliNginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/25/Interview/">Interview</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/vueapi/">VueAPI</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/javascriptChartingLib/">JavaScript 图表库</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/15/vue/">vue 教程 computed watcher class style v-for v-if 事件 表单 组件 指令</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/15/js-cssLib/">js/cssLib</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/14/git/">Git 常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/13/Tip/">cssTip</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/07/casperJS/">casperJS</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/06/canvas5/">canvas基础（五）基本动画</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/06/canvas4/">canvas基础（四）状态</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/06/canvas3/">canvas基础（三） 使用图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/05/canvas2/">canvas基础（二）绘制图形</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/05/canvas1/">canvas基础（一）基本用法</a></li></ul></aside></section></div><div class="extra"></div><footer class="footer"><div class="row-flex-row limit-width vh-center"><div class="copyright"><P>Powered by lin © 2018 <a href="/">lin</P></div></div></footer><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-80781234-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?ee75cf111111aa99f8540efa2570970";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>

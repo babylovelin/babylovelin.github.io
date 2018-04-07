@@ -1,0 +1,69 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> VueAPI · lie on this ip ，I am lin</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/jekyll.css"><!--[if lt IE 9]>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]--></head><body><header class="row-flex-row limit-width vh-center"><a href="/" class="logo"><img src="/dog.png"></a><nav><ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-link">Home</a></li><li class="nav-list-item"><a href="/archives/" class="nav-link active">   Blog</a></li><li class="nav-list-item"><a href="https://github.com/xxxxxx111" target="_blank" class="nav-link">github</a></li><li class="nav-list-item"><a href="https://coding.net/u/xxxxxx" target="_blank" class="nav-link">coding</a></li><li class="nav-list-item"><a href="http://weibo.com/xxxxxx" target="_blank" class="nav-link">weibo</a></li><li class="nav-list-item"><a href="/atom.xml" class="nav-link">rss</a></li></ul></nav></header><div class="container limit-width"><section class="row-flex-row"><div class="post"><article class="post-block"><h2 class="post-title"><a href="/2018/03/20/vueapi/" class="post-title-link">VueAPI</a></h2><div class="post-meta"><ul class="post-tag-list"><li class="post-tag-item"><a href="/tags/vue/" class="post-tag-link">vue</a></li></ul><div class="post-time">Tuesday, March 20th 2018</div></div><div class="post-content"><div class="note"><br>    <h5>数据更新DOM不刷新</h5><br>    <p>以下几个api是针对DOM刷新问题</p><br></div>
+
+<h2 id="Vue-nextTick"><a href="#Vue-nextTick" class="headerlink" title="Vue.nextTick"></a>Vue.nextTick</h2><p><code>// 修改数据
+vm.msg = &#39;Hello&#39;
+// DOM 还没有更新
+Vue.nextTick(function () {
+  // DOM 更新了
+})
+// 作为一个 Promise 使用 (2.1.0 起新增，详见接下来的提示)
+Vue.nextTick()
+  .then(function () {
+    // DOM 更新了
+  })</code></p>
+<h2 id="Vue-set-target-key-value"><a href="#Vue-set-target-key-value" class="headerlink" title="Vue.set( target, key, value )"></a>Vue.set( target, key, value )</h2><p>设置对象的属性。如果对象是响应式的，确保属性被创建后也是响应式的，同时触发视图更新。这个方法主要用于避开 Vue 不能检测属性被添加的限制。</p>
+<h2 id="Vue-delete-target-key"><a href="#Vue-delete-target-key" class="headerlink" title="Vue.delete( target, key )"></a>Vue.delete( target, key )</h2><p>删除对象的属性。如果对象是响应式的，确保删除能触发更新视图。</p>
+<div class="note"><br>    <h5>选项/数据</h5><br>    <p>几种常用数据的注意点</p><br></div>
+
+<h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p><code>// 简单语法
+Vue.component(&#39;props-demo-simple&#39;, {
+  props: [&#39;size&#39;, &#39;myMessage&#39;]
+})
+// 对象语法，提供校验
+Vue.component(&#39;props-demo-advanced&#39;, {
+  props: {
+    // 检测类型
+    height: Number,
+    // 检测类型 + 其他验证
+    age: {
+      type: Number,
+      default: 0,
+      required: true,
+      validator: function (value) { //自定义校验函数
+        return value &gt;= 0
+      }
+    }
+  }
+})</code></p>
+<div class="note"><br>    <h5>生命周期钩子</h5><br>    <p>重点</p><br></div>
+
+<h2 id="beforeCreate"><a href="#beforeCreate" class="headerlink" title="beforeCreate"></a>beforeCreate</h2><p>在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用</p>
+<h2 id="created"><a href="#created" class="headerlink" title="created"></a>created</h2><p>在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，</p>
+<p>属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。</p>
+<h2 id="beforeMount"><a href="#beforeMount" class="headerlink" title="beforeMount"></a>beforeMount</h2><p>在挂载开始之前被调用：相关的 render 函数首次被调用</p>
+<h2 id="mounted"><a href="#mounted" class="headerlink" title="mounted"></a>mounted</h2><p>el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。</p>
+<p>注意 mounted 不会承诺所有的子组件也都一起被挂载。如果你希望等到整个视图都渲染完毕，可以用 vm.$nextTick 替换掉 mounted：</p>
+<p><code>mounted: function () {
+  this.$nextTick(function () {
+    // Code that will run only after the
+    // entire view has been rendered
+  })
+}</code></p>
+<h2 id="beforeUpdate"><a href="#beforeUpdate" class="headerlink" title="beforeUpdate"></a>beforeUpdate</h2><p>数据更新时调用，发生在虚拟 DOM 打补丁之前。</p>
+<p>这里适合在更新之前访问现有的 DOM，比如手动移除已添加的事件监听器。</p>
+<h2 id="updated"><a href="#updated" class="headerlink" title="updated"></a>updated</h2><p>当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。</p>
+<p>然而在大多数情况下，你应该避免在此期间更改状态。</p>
+<p>如果要相应状态改变，通常最好使用计算属性或 watcher 取而代之。</p>
+<p>updated 不会承诺所有的子组件也都一起被重绘。如果你希望等到整个视图都重绘完毕，可以用 vm.$nextTick 替换掉 updated</p>
+<p><code>updated: function () {
+  this.$nextTick(function () {
+    // Code that will run only after the
+    // entire view has been re-rendered
+  })
+}</code></p>
+<h2 id="beforeDestroy"><a href="#beforeDestroy" class="headerlink" title="beforeDestroy"></a>beforeDestroy</h2><p>实例销毁之前调用。在这一步，实例仍然完全可用</p>
+<h2 id="destroyed"><a href="#destroyed" class="headerlink" title="destroyed"></a>destroyed</h2><p>Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。</p>
+</div></article><div class="pagination"><a href="/2018/03/25/Interview/" class="pagination-prev">PREV</a><a href="/2018/03/18/javascriptChartingLib/" class="pagination-next">NEXT</a></div><div class="comments"></div></div><aside class="sidebar"><h3>分类标签</h3><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5/">H5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aliNginx/">aliNginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓展/">拓展</a></li></ul><h3>最新文章</h3><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/04/07/jsMechanism/">jsMechanism</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/07/aliNginx/">aliNginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/25/Interview/">Interview</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/vueapi/">VueAPI</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/javascriptChartingLib/">JavaScript 图表库</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/15/vue/">vue 教程 computed watcher class style v-for v-if 事件 表单 组件 指令</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/15/js-cssLib/">js/cssLib</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/14/git/">Git 常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/13/Tip/">cssTip</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/07/casperJS/">casperJS</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/06/canvas5/">canvas基础（五）基本动画</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/06/canvas4/">canvas基础（四）状态</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/06/canvas3/">canvas基础（三） 使用图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/05/canvas2/">canvas基础（二）绘制图形</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/05/canvas1/">canvas基础（一）基本用法</a></li></ul></aside></section></div><div class="extra"></div><footer class="footer"><div class="row-flex-row limit-width vh-center"><div class="copyright"><P>Powered by lin © 2018 <a href="/">lin</P></div></div></footer><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-80781234-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?ee75cf111111aa99f8540efa2570970";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>
