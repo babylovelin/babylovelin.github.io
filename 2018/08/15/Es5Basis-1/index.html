@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Es5Basis-1 · lie on this ip ，I am lin</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/jekyll.css"><!--[if lt IE 9]>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]--></head><body><header class="row-flex-row limit-width vh-center"><a href="/" class="logo"><img src="/dog.png"></a><nav><ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-link">Home</a></li><li class="nav-list-item"><a href="/archives/" class="nav-link active">   Blog</a></li><li class="nav-list-item"><a href="https://github.com/xxxxxx111" target="_blank" class="nav-link">github</a></li><li class="nav-list-item"><a href="https://coding.net/u/xxxxxx" target="_blank" class="nav-link">coding</a></li><li class="nav-list-item"><a href="http://weibo.com/xxxxxx" target="_blank" class="nav-link">weibo</a></li><li class="nav-list-item"><a href="/atom.xml" class="nav-link">rss</a></li></ul></nav></header><div class="container limit-width"><section class="row-flex-row"><div class="post"><article class="post-block"><h2 class="post-title"><a href="/2018/08/15/Es5Basis-1/" class="post-title-link">Es5Basis-1</a></h2><div class="post-meta"><ul class="post-tag-list"><li class="post-tag-item"><a href="/tags/js/" class="post-tag-link">js</a></li></ul><div class="post-time">Wednesday, August 15th 2018</div></div><div class="post-content"><h2 id="词法结构"><a href="#词法结构" class="headerlink" title="词法结构"></a>词法结构</h2><p>1 js区分大小写，html不区分大小写</p>
+<h2 id="类型，值，变量"><a href="#类型，值，变量" class="headerlink" title="类型，值，变量"></a>类型，值，变量</h2><p>1 js数据类型分为原始类型和对象类型。</p>
+<p>  原始类型包括：数字，字符串，bool，null，undefined</p>
+<p>  对象：是属性的集合。 <code>普通对象</code>是“命名值”的无序集合， <code>数组</code>是带编号的值的有序集合。  <code>函数</code>是具有与他相关联的可执行代码的对象。</p>
+<p>  如果用函数来初始化一个新建的对象（new），称之为<code>构造函数（constructor）</code>。每个构造函数定义了一类<code>class</code>对象（由构造函数初始化的对象组成的集合）。</p>
+<p>  除了数组类，函数类，还有日期类，正则类，错误类。</p>
+<h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><p>1 非数字值，NaN，和任何值都不相等，包括自身。 <code>isNaN()</code>参数为NaN或者一个非数字值时返回true</p>
+<p>2 <code>isFinite()</code> 参数不是NaN，Infinity或-Infinity时返回true</p>
+<p>3 js可以精确表示1/2,1/8,1/1024,不能精确表示1/10类似0.1这种简单的数字。</p>
+<p>  <code>.3-.2 != .2-.1</code>,所以一般计算金融，使用整数分，而不是小数元。</p>
+<h2 id="文本"><a href="#文本" class="headerlink" title="文本"></a>文本</h2><p>1 字符串相关API<br>  var s = “hello,world”</p>
+<p>  <code>s.charAt(0)</code> h 第一个字符</p>
+<p>  <code>s.charAt(s.length-1)</code> d 最后一个字符</p>
+<p>  <code>s.substring(1,4)</code> ell 第2-4 字符</p>
+<p>  <code>s.slice(1,4)</code> ell 同上</p>
+<p>  <code>s.slice(-3)</code> rld 最后三个字符</p>
+<p>  <code>s.indexOf(&quot;l&quot;)</code> 2 l字母首次出现的位置</p>
+<p>  <code>s.lastIndexof(&quot;l&quot;)</code> 10 l字母最后一次出现的位置</p>
+<p>  <code>s.indexOf(&quot;1&quot;,3)</code> 在位置3 之后 l首次出现的位置</p>
+<p>  <code>s.split(&quot;,&quot;)</code> 按照，分割成字串</p>
+<p>  <code>s.replace(&quot;h&quot;,&quot;H&quot;)</code>, Hello，world 全文子替换符</p>
+<p>  <code>s.toUpperCase()</code> 全部转换大写</p>
+<h2 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h2><p>1 在两条斜线中间的文本构成了正则表达式的直接量，<code>直接量即为程序中直接使用的数据值</code></p>
+<p>RegExp()构造函数，用来创建文本匹配模式的对象。<code>正则表达式</code></p>
+<p>字符串也可以接受RegExp参数的方法</p>
+<p>var text = “testing:1,2,3”</p>
+<p>var pattern = /\d+/g  匹配包含一个或多个数字的实例</p>
+<p><code>pattern.test(text)</code> true 匹配成功</p>
+<p><code>text.search(pattern)</code> 9 首次匹配成功的位置</p>
+<p><code>text.match(pattern)</code> [“1”,”2”,”3”] 所有匹配组成的数组</p>
+<p><code>text.replace(pattern,&quot;#&quot;)</code> test:#,#,#</p>
+<p><code>text.split(/\D+/)</code> 用非数字字符截取字符串</p>
+</div></article><div class="pagination"><span class="pagination-prev">PREV</span><a href="/2018/04/07/jsMechanism/" class="pagination-next">NEXT</a></div><div class="comments"></div></div><aside class="sidebar"><h3>分类标签</h3><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5/">H5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/aliNginx/">aliNginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/interview/">interview</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓展/">拓展</a></li></ul><h3>最新文章</h3><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/08/15/Es5Basis-1/">Es5Basis-1</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/07/jsMechanism/">jsMechanism</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/07/aliNginx/">aliNginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/25/Interview/">Interview</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/vueapi/">VueAPI</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/18/javascriptChartingLib/">JavaScript 图表库</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/15/vue/">vue 教程 computed watcher class style v-for v-if 事件 表单 组件 指令</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/15/js-cssLib/">js/cssLib</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/14/git/">Git 常用命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/13/Tip/">cssTip</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/07/casperJS/">casperJS</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/06/canvas5/">canvas基础（五）基本动画</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/06/canvas4/">canvas基础（四）状态</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/06/canvas3/">canvas基础（三） 使用图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/05/canvas2/">canvas基础（二）绘制图形</a></li></ul></aside></section></div><div class="extra"></div><footer class="footer"><div class="row-flex-row limit-width vh-center"><div class="copyright"><P>Powered by lin © 2018 <a href="/">lin</P></div></div></footer><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-80781234-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?ee75cf111111aa99f8540efa2570970";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>
